@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=MultiViewer
+Comment=Experience motorsports like never before
+GenericName=Motorsport desktop client
+Keywords=F1;Formula 1;Formula One;F2;Formula 2;Formula Two;F3;Formula 3;Formula Three;IndyCar;NASCAR;National Association for Stock Car Auto Racing;WEC;FIA World Endurance Championship
+Exec=app.multiviewer.MultiViewer %U
+Icon=app.multiviewer.MultiViewer
+Type=Application
+StartupNotify=true
+Categories=AudioVideo;Video;
+MimeType=x-scheme-handler/multiviewer;x-scheme-handler/f1mv;x-scheme-handler/muvi;

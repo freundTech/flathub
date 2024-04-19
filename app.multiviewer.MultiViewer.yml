@@ -1,0 +1,45 @@
+app-id: app.multiviewer.MultiViewer
+base: org.electronjs.Electron2.BaseApp
+base-version: '23.08'
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: app.multiviewer.MultiViewer
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --own-name=org.mpris.MediaPlayer2.chromium.*
+modules:
+  # xdg settings can't be accessed from inside the sandbox anyways, so we just install an empty stub
+  - name: xdg-settings-stub
+    sources: 
+      - type: script
+        commands: []
+        dest-filename: xdg-settings
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 xdg-settings -t $FLATPAK_DEST/bin
+  - name: multiviewer
+    sources:
+      - type: archive
+        url: https://releases.multiviewer.app/download/155752212/MultiViewer.for.F1-linux-x64-1.31.7.zip
+        sha256: fc1bee2d637afd4bfb5dd19b7039a1568ec99ad6ca4dabd9a10563fdb841b26b
+      - type: file
+        path: multiviewer.sh
+      - type: file
+        path: app.multiviewer.MultiViewer.png
+      - type: file
+        path: app.multiviewer.MultiViewer.desktop
+      - type: file
+        path: app.multiviewer.MultiViewer.metainfo.xml
+    buildsystem: simple
+    build-commands:
+      - cp -r . $FLATPAK_DEST/lib 
+      - install -Dm755 multiviewer.sh $FLATPAK_DEST/bin/app.multiviewer.MultiViewer
+      - install -D app.multiviewer.MultiViewer.png -t $FLATPAK_DEST/share/icons/hicolor/256x256/apps/
+      - install -D app.multiviewer.MultiViewer.desktop -t $FLATPAK_DEST/share/applications/
+      - install -D app.multiviewer.MultiViewer.metainfo.xml -t $FLATPAK_DEST/share/metainfo
+

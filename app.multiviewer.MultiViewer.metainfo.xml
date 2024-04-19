@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>app.multiviewer.MultiViewer</id>
+  
+  <name>MultiViewer</name>
+  <summary>Experience motorsports like never before</summary>
+  
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>LicenseRef-proprietary</project_license>
+
+  <developer_name>MultiViewer</developer_name>
+  <developer id="app.multiviewer">
+    <name>MultiViewer</name>
+  </developer>
+  
+  <description>
+    <p>
+      MultiViewer is an unofficial, community-built, multi-stream player for various motorsports, with capabilities to sync multiple streams, restore saved layouts, and show live telemetry alongside live action.
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">app.multiviewer.MultiViewer.desktop</launchable>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#ff5b57</color>
+    <color type="primary" scheme_preference="dark">#8c0400</color>
+  </branding>
+
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-realistic">mild</content_attribute>
+    <content_attribute id="drugs-alcohol">moderate</content_attribute>
+    <content_attribute id="language-profanity">moderate</content_attribute>
+    <content_attribute id="money-advertising">moderate</content_attribute>
+  </content_rating>
+
+  <url type="homepage">https://multiviewer.app/</url>
+  <url type="bugtracker">https://github.com/f1multiviewer/issue-tracker/issues</url>
+  <url type="donation">https://multiviewer.app/donate</url>
+  <url type="help">https://multiviewer.app/docs</url>
+  <url type="faq">https://multiviewer.app/docs/getting-started/faq</url>
+  <url type="contact">https://muvi.gg/discord</url>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://example.com/todo</image>
+      <caption>The main window</caption>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="1.31.7" date="2024-03-09">
+      <url type="details">https://multiviewer.app/changelog#version-1.31.7</url>
+      <description>
+        <p>Enhancements</p>
+        <ul>
+          <li>Enhanced the IndyCar player logic to ensure both live and replay streams function correctly again.</li>
+          <li>Updated the beta player internals and introduced an improved network strategy for better performance.</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+
+
+</component>
