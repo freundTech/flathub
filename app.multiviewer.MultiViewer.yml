@@ -17,8 +17,8 @@ modules:
   - name: xdg-settings-stub
     sources:
       - type: script
-        commands: []
         dest-filename: xdg-settings
+        commands: []
     buildsystem: simple
     build-commands:
       - install -Dm755 xdg-settings -t $FLATPAK_DEST/bin
@@ -31,8 +31,11 @@ modules:
           type: html
           url: https://multiviewer.app/download
           pattern: (https://releases.multiviewer.app/download/\d+/MultiViewer.for.F1-linux-x64-([\d\.-]+).zip)
-      - type: file
-        path: multiviewer.sh
+      - type: script
+        dest-filename: multiviewer.sh
+        commands:
+          # zypak makes the electron sandbox work inside the flatpak sandbox
+          - zypak-wrapper "/app/lib/MultiViewer for F1" "$@"
       - type: file
         path: app.multiviewer.MultiViewer.png
       - type: file
