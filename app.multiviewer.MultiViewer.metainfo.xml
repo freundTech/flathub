@@ -17,6 +17,7 @@
     <p>
       MultiViewer is an unofficial, community-built, multi-stream player for various motorsports, with capabilities to sync multiple streams, restore saved layouts, and show live telemetry alongside live action.
     </p>
+    <p>Requires a paid F1TV® Pro subscription.</p>
   </description>
   
   <launchable type="desktop-id">app.multiviewer.MultiViewer.desktop</launchable>
@@ -42,8 +43,20 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://example.com/todo</image>
-      <caption>The main window</caption>
+      <image>https://raw.githubusercontent.com/flathub/app.multiviewer.MultiViewer/master/screenshots/Dashboard.png</image>
+      <caption>Watch Formula 1, INDYCAR, NASCAR and WEC</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/flathub/app.multiviewer.MultiViewer/master/screenshots/Tutorial.png</image>
+      <caption>See live data using the detailed live timing overlay</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/flathub/app.multiviewer.MultiViewer/master/screenshots/Home.png</image>
+      <caption>Watch live races and replays</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/flathub/app.multiviewer.MultiViewer/master/screenshots/Season-2024.png</image>
+      <caption>Keep up to date with your favorite races</caption>
     </screenshot>
   </screenshots>
 
