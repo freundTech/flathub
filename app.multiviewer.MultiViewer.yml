@@ -11,7 +11,10 @@ finish-args:
   - --socket=x11
   - --socket=pulseaudio
   - --device=dri
+  # Electon apps always use chromium name for mpris
   - --own-name=org.mpris.MediaPlayer2.chromium.*
+  # Inhibit screensaver while video is playing
+  - --talk-name=org.freedesktop.ScreenSaver
 modules:
   # xdg settings can't be accessed from inside the sandbox anyways, so we just install an empty stub
   - name: xdg-settings-stub
