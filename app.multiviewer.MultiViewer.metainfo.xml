@@ -8,7 +8,6 @@
   <metadata_license>FSFAP</metadata_license>
   <project_license>LicenseRef-proprietary</project_license>
 
-  <developer_name>MultiViewer</developer_name>
   <developer id="app.multiviewer">
     <name>MultiViewer</name>
   </developer>
@@ -47,6 +46,10 @@
       <caption>Watch Formula 1, INDYCAR, NASCAR and WEC</caption>
     </screenshot>
     <screenshot>
+      <image>https://raw.githubusercontent.com/flathub/app.multiviewer.MultiViewer/master/screenshots/Viewer.png</image>
+      <caption>Watch multiple streams at once</caption>
+    </screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/flathub/app.multiviewer.MultiViewer/master/screenshots/Tutorial.png</image>
       <caption>See live data using the detailed live timing overlay</caption>
     </screenshot>
@@ -56,7 +59,7 @@
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/flathub/app.multiviewer.MultiViewer/master/screenshots/Season-2024.png</image>
-      <caption>Keep up to date with your favorite races</caption>
+      <caption>Keep up to date with your favorite series</caption>
     </screenshot>
   </screenshots>
 
