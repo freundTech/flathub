@@ -1,0 +1,25 @@
+From 299d4ea95e719d088c5427afafc5c720d21c1825 Mon Sep 17 00:00:00 2001
+From: Adrian Freund <adrian@freund.io>
+Date: Fri, 10 May 2024 14:37:27 +0200
+Subject: [PATCH 2/2] run-yarn-offline
+
+---
+ src-tauri/tauri.conf.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src-tauri/tauri.conf.json b/src-tauri/tauri.conf.json
+index 75532e3..b4aca92 100644
+--- a/src-tauri/tauri.conf.json
++++ b/src-tauri/tauri.conf.json
+@@ -1,7 +1,7 @@
+ {
+   "build": {
+     "beforeDevCommand": "cd frontend && yarn dev",
+-    "beforeBuildCommand": "cd frontend/ && yarn && yarn build",
++    "beforeBuildCommand": "cd frontend/ && yarn --offline && yarn --offline build",
+     "devPath": "http://localhost:1420",
+     "distDir": "../frontend/dist",
+     "withGlobalTauri": false
+-- 
+2.45.0
+

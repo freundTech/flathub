@@ -1,0 +1,183 @@
+id: io.music_assistant.Companion
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+command: music-assistant-companion
+
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node20
+  - org.freedesktop.Sdk.Extension.rust-stable
+
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --share=ipc
+  - --share=network
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --system-talk-name=org.freedesktop.Avahi
+  - --device=dri
+
+build-options:
+  append-path: /usr/lib/sdk/node20/bin:/usr/lib/sdk/rust-stable/bin
+
+modules:
+  - shared-modules/libappindicator/libappindicator-gtk3-12.10.json
+
+  - name: webkit2gtk-4.0
+    sources:
+      - type: archive
+        url: https://webkitgtk.org/releases/webkitgtk-2.45.1.tar.xz
+        sha256: 9813f5dfb81717c1a427f6947654edad0bdc1e21445902fdb9b9a5589d36c38d
+        x-checker-data:
+          type: html
+          url: https://webkitgtk.org/releases/
+          version-pattern: LATEST-STABLE-(\d[\.\d]+\d)
+          url-template: https://webkitgtk.org/releases/webkitgtk-$version.tar.xz
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DPORT=GTK
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DENABLE_DOCUMENTATION=OFF
+      - -DENABLE_MINIBROWSER=OFF
+      - -DENABLE_WEBDRIVER=OFF
+      - -DENABLE_GAMEPAD=OFF
+      - -DUSE_LIBBACKTRACE=OFF
+      - -DUSE_GTK4=OFF
+      - -DUSE_SOUP2=ON
+      - -DENABLE_BUBBLEWRAP_SANDBOX=OFF
+    modules:
+      - shared-modules/libsoup/libsoup-2.4.json
+
+      - name: unifdef
+        no-autogen: true
+        make-install-args:
+          - prefix=${FLATPAK_DEST}
+        sources:
+          - type: archive
+            url: https://dotat.at/prog/unifdef/unifdef-2.12.tar.xz
+            sha256: 43ce0f02ecdcdc723b2475575563ddb192e988c886d368260bc0a63aee3ac400
+        cleanup:
+          - '*'
+
+      - name: libjxl
+        buildsystem: cmake
+        config-opts:
+          - -DCMAKE_BUILD_TYPE=Release
+          - -DBUILD_TESTING=OFF
+        sources:
+          - type: git
+            url: https://github.com/libjxl/libjxl.git
+            tag: v0.10.2
+            commit: e1489592a770b989303b0edc5cc1dc447bbe0515
+            disable-shallow-clone: true
+            x-checker-data:
+              type: git
+              tag-pattern: ^v([\d.]+)$
+
+  - name: avahi
+    config-opts:
+      - --enable-shared
+      - --disable-static
+      - --with-distro=none
+      - --with-systemdsystemunitdir=/app/lib/systemd
+      - --enable-dbus
+      - --enable-compat-libdns_sd
+      - --disable-libdaemon
+      - --disable-python
+      - --disable-pygobject
+      - --disable-python-dbus
+      - --disable-gtk
+      - --disable-gtk3
+      - --disable-qt3
+      - --disable-qt4
+      - --disable-qt5
+      - --disable-mono
+      - --disable-monodoc
+      - --disable-doxygen-doc
+      - --disable-doxygen-dot
+      - --disable-doxygen-man
+      - --disable-doxygen-rtf
+      - --disable-doxygen-xml
+      - --disable-doxygen-chm
+      - --disable-doxygen-chi
+      - --disable-doxygen-html
+      - --disable-doxygen-ps
+      - --disable-doxygen-pdf
+      - --disable-core-docs
+      - --disable-manpages
+      - --disable-xmltoman
+    sources:
+      - type: archive
+        url: https://avahi.org/download/avahi-0.8.tar.gz
+        sha256: 060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda
+      - type: shell
+        commands:
+          - cp -p /usr/share/automake-*/config.{sub,guess} .;
+          - autoreconf -vfi;
+    modules:
+      - shared-modules/dbus-glib/dbus-glib.json
+      - name: libevent
+        config-opts:
+          - --enable-shared
+          - --disable-static
+          - --enable-openssl
+          - --disable-samples
+        sources:
+          - type: archive
+            url: https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz
+            sha256: a65bac6202ea8c5609fd5c7e480e6d25de467ea1917c08290c521752f147283d
+            # Disable network tests
+            # https://src.fedoraproject.org/rpms/libevent/blob/4c1c387718ddd5284ae5170fac63b91377365ca7/f/libevent-nonettests.patch
+            #- type: patch
+            #path: libevent-disable-network-tests.patch
+          - type: shell
+            commands:
+              - cp -p /usr/share/automake-*/config.{sub,guess} .;
+              - autoreconf -vfi;
+        cleanup:
+            - /bin
+
+  - squeezelite.yml
+
+  - name: Companion
+    sources:
+      - type: git
+        url: https://github.com/music-assistant/companion.git
+        tag: v0.0.35
+        commit: ce3b6da3540163bbc9235d3b637455cb9bf9b96c
+        x-checker-data:
+          type: git
+          tag-pattern: ^v((?:\d+.)*\d+)$
+      - type: patch
+        path: 0001-disable-tauri-updater.patch
+      - type: patch
+        path: 0002-run-yarn-offline.patch
+      - node-sources.json
+      - cargo-sources.json
+      - type: file
+        path: io.music_assistant.Companion.desktop
+      - type: file
+        path: io.music_assistant.Companion.appdata.xml
+    buildsystem: simple
+    build-options:
+      env:
+        CARGO_HOME: /run/build/Companion/cargo
+        XDG_CACHE_HOME: /run/build/Companion/flatpak-node/cache
+        npm_config_cache: /run/build/Companion/flatpak-node/npm-cache
+        npm_config_offline: 'true'
+        npm_config_sharp_libvips_local_prebuilds: /run/build/Companion/flatpak-node/libvips-cache
+        NODE_OPTIONS: --max_old_space_size=4096
+    build-commands:
+      #- for project in . cinny; do npm ci --offline --legacy-peer-deps --prefix=$project;
+      #  done
+      - HOME=$PWD yarn config --offline set yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror
+      - yarn --offline
+      - cargo --offline fetch --manifest-path src-tauri/Cargo.toml --verbose
+      - npx --offline tauri build -b none
+      - install -Dm644 -t /app/share/metainfo/ io.music_assistant.Companion.appdata.xml
+      - install -Dm755 -t /app/bin/ src-tauri/target/release/music-assistant-companion
+      #- install -Dm755 src-tauri/bin/squeezelite-x86_64-unknown-linux-gnu /app/bin/squeezelite
+      #- install -Dm755 -t /app/share/icons/hicolor/scalable/apps/ cinny/public/res/svg/cinny.svg
+      #- install -Dm644 -t /app/share/applications/ in.cinny.Cinny.desktop

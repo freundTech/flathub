@@ -1,0 +1,77 @@
+From faf2214342c918aa65ff08f41984f802cb5b0c35 Mon Sep 17 00:00:00 2001
+From: Adrian Freund <adrian@freund.io>
+Date: Fri, 10 May 2024 11:19:20 +0200
+Subject: [PATCH 1/2] disable tauri updater
+
+---
+ src-tauri/Cargo.toml      | 2 +-
+ src-tauri/src/main.rs     | 7 +------
+ src-tauri/tauri.conf.json | 2 +-
+ 3 files changed, 3 insertions(+), 8 deletions(-)
+
+diff --git a/src-tauri/Cargo.toml b/src-tauri/Cargo.toml
+index 363d24a..bc9981c 100644
+--- a/src-tauri/Cargo.toml
++++ b/src-tauri/Cargo.toml
+@@ -13,7 +13,7 @@ edition = "2021"
+ tauri-build = { version = "1.5.2", features = [] }
+ 
+ [dependencies]
+-tauri = { version = "1.6.3", features = [ "system-tray", "process-relaunch", "updater", "shell-sidecar", "shell-open", "process-command-api", "devtools"] }
++tauri = { version = "1.6.3", features = [ "system-tray", "process-relaunch", "shell-sidecar", "shell-open", "process-command-api", "devtools"] }
+ tauri-plugin-websocket = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+ tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+ tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+diff --git a/src-tauri/src/main.rs b/src-tauri/src/main.rs
+index b67c68a..ce11846 100644
+--- a/src-tauri/src/main.rs
++++ b/src-tauri/src/main.rs
+@@ -79,7 +79,6 @@ fn start_sqzlite(ip: String, output_device: String, port: String) {
+ fn main() {
+     // Create the tray menu
+     let quit: CustomMenuItem = CustomMenuItem::new("quit".to_string(), "Quit");
+-    let update: CustomMenuItem = CustomMenuItem::new("update".to_string(), "Check for updates");
+     let hide: CustomMenuItem = CustomMenuItem::new("hide".to_string(), "Hide");
+     let show: CustomMenuItem = CustomMenuItem::new("show".to_string(), "Show");
+     let relaunch: CustomMenuItem = CustomMenuItem::new("relaunch".to_string(), "Relaunch");
+@@ -87,7 +86,6 @@ fn main() {
+         .add_item(hide)
+         .add_item(show)
+         .add_native_item(SystemTrayMenuItem::Separator)
+-        .add_item(update)
+         .add_item(relaunch)
+         .add_native_item(SystemTrayMenuItem::Separator)
+         .add_item(quit);
+@@ -140,9 +138,6 @@ fn main() {
+                 "relaunch" => {
+                     tauri::api::process::restart(&app.env());
+                 }
+-                "update" => {
+-                    app.updater();
+-                }
+                 _ => {}
+             },
+             _ => {}
+@@ -159,4 +154,4 @@ fn main() {
+         }))
+         .run(context)
+         .expect("error while running tauri application");
+-}
+\ No newline at end of file
++}
+diff --git a/src-tauri/tauri.conf.json b/src-tauri/tauri.conf.json
+index 5d0ba43..75532e3 100644
+--- a/src-tauri/tauri.conf.json
++++ b/src-tauri/tauri.conf.json
+@@ -61,7 +61,7 @@
+       }
+     ],
+     "updater": {
+-      "active": true,
++      "active": false,
+       "dialog": true,
+       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDE4MTRFMzdFOTQxREQ0MzIKUldReTFCMlVmdU1VR0xtTW4wRzVjRThzLzA1NG4rZXhSYmYwTngxQmw3RVRDelJ2VEQzby80dmUK",
+       "endpoints": [
+-- 
+2.45.0
+

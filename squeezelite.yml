@@ -1,0 +1,10 @@
+name: Companion
+sources:
+  - type: git
+    url: https://github.com/ralph-irving/squeezelite.git
+    commit: 0e85ddfd79337cdc30b7d29922b1d790600bb6b4
+buildsystem: simple
+build-options:
+build-commands:
+  - make -f Makefile.pulse
+  - install -Dm755 squeezelite-pulse /app/bin/squeezelite

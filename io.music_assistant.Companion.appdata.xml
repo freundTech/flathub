@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.music_assistant.Companion</id>
+
+  <name>Music Assistant Companion</name>
+  <summary>Music assistant desktop app</summary>
+  <developer_name>Jonathan Bangert</developer_name>
+  <developer id="dev.arctix">
+    <name>Jonathan Bangert</name>
+  </developer>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0 AND GPL-3.0-only</project_license>
+
+  <url type="homepage">https://music-assistant.io/companion-app/</url>
+  <url type="bugtracker">https://github.com/music-assistant/companion/issues</url>
+
+  <requires>
+    <internet>always</internet>
+  </requires>
+
+  <categories>
+    <category>Network</category>
+    <category>Music</category>
+  </categories>
+
+  <description>
+    <p>
+      The desktop companion app for Music Assistant!
+    </p>
+  </description>
+
+  <launchable type="desktop-id">io.music_assistant.Companion.desktop</launchable>
+  <releases>
+      <release version="0.0.35" date="2025-05-08"/>
+  </releases>
+  <content_rating type="oars-1.1"/>
+</component>
