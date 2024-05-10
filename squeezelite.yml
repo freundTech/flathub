@@ -8,3 +8,18 @@ build-options:
 build-commands:
   - make -f Makefile.pulse
   - install -Dm755 squeezelite-pulse /app/bin/squeezelite
+modules:
+  - name: faad2
+    sources:
+      - type: git
+        url: https://github.com/knik0/faad2.git
+        tag: 2.11.1
+        commit: 216f00e8ddba6f2c64caf481a04f1ddd78b93e78
+    buildsystem: cmake
+  - name: libmad
+    sources:
+      - type: git
+        url: https://codeberg.org/tenacityteam/libmad.git
+        tag: 0.16.4
+        commit: ee7c3cdd4361b7f7c7da52fa3ba9f76cc35230a9
+    buildsystem: cmake

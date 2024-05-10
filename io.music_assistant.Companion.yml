@@ -3,6 +3,7 @@ runtime: org.gnome.Platform
 runtime-version: '46'
 sdk: org.gnome.Sdk
 command: music-assistant-companion
+rename-icon: musicassistant
 
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node20
@@ -141,7 +142,7 @@ modules:
 
   - squeezelite.yml
 
-  - name: Companion
+  - name: music-assistant-companion
     sources:
       - type: git
         url: https://github.com/music-assistant/companion.git
@@ -157,17 +158,14 @@ modules:
       - node-sources.json
       - cargo-sources.json
       - type: file
-        path: io.music_assistant.Companion.desktop
-      - type: file
-        path: io.music_assistant.Companion.appdata.xml
+        path: io.music_assistant.Companion.metainfo.xml
     buildsystem: simple
     build-options:
       env:
-        CARGO_HOME: /run/build/Companion/cargo
-        XDG_CACHE_HOME: /run/build/Companion/flatpak-node/cache
-        npm_config_cache: /run/build/Companion/flatpak-node/npm-cache
+        CARGO_HOME: /run/build/music-assistant-companion/cargo
+        XDG_CACHE_HOME: /run/build/music-assistant-companion/flatpak-node/cache
+        npm_config_cache: /run/build/music-assistant-companion/flatpak-node/npm-cache
         npm_config_offline: 'true'
-        npm_config_sharp_libvips_local_prebuilds: /run/build/Companion/flatpak-node/libvips-cache
         NODE_OPTIONS: --max_old_space_size=4096
     build-commands:
       #- for project in . cinny; do npm ci --offline --legacy-peer-deps --prefix=$project;
@@ -176,8 +174,12 @@ modules:
       - yarn --offline
       - cargo --offline fetch --manifest-path src-tauri/Cargo.toml --verbose
       - npx --offline tauri build -b none
-      - install -Dm644 -t /app/share/metainfo/ io.music_assistant.Companion.appdata.xml
+      - install -Dm644 -t /app/share/metainfo/ io.music_assistant.Companion.metainfo.xml
       - install -Dm755 -t /app/bin/ src-tauri/target/release/music-assistant-companion
-      #- install -Dm755 src-tauri/bin/squeezelite-x86_64-unknown-linux-gnu /app/bin/squeezelite
-      #- install -Dm755 -t /app/share/icons/hicolor/scalable/apps/ cinny/public/res/svg/cinny.svg
-      #- install -Dm644 -t /app/share/applications/ in.cinny.Cinny.desktop
+      #- install -Dm644 src-tauri/icons/32x32.png /app/share/icons/hicolor/32x32/apps/io.music_assistant.Companion.png
+      #- install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/io.music_assistant.Companion.png
+      #- install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/io.music_assistant.Companion.png
+      - install -Dm644 src-tauri/icons/32x32.png /app/share/icons/hicolor/32x32/apps/musicassistant.png
+      - install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/musicassistant.png
+      - install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/musicassistant.png
+      - install -Dm644 musicassistant.desktop /app/share/applications/io.music_assistant.Companion.desktop

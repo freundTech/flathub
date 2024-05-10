@@ -31,6 +31,8 @@
   </description>
 
   <launchable type="desktop-id">io.music_assistant.Companion.desktop</launchable>
+  <icon type="stock">io.music_assistant.Companion.png</icon>
+
   <releases>
       <release version="0.0.35" date="2025-05-08"/>
   </releases>
