@@ -28,8 +28,8 @@ modules:
   - name: multiviewer
     sources:
       - type: archive
-        url: https://releases.multiviewer.app/download/155752212/MultiViewer.for.F1-linux-x64-1.31.7.zip
-        sha256: fc1bee2d637afd4bfb5dd19b7039a1568ec99ad6ca4dabd9a10563fdb841b26b
+        url: https://releases.multiviewer.app/download/167189308/MultiViewer.for.F1-linux-x64-1.31.10.zip
+        sha256: a9dcd0d590e876390b4c808aa5b1746fabdeb023f84bc3a50b6d912546d381e6
         x-checker-data:
           type: json
           url: https://api.multiviewer.dev/api/v1/releases/latest

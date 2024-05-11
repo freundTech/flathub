@@ -64,6 +64,7 @@
   </screenshots>
 
   <releases>
+    <release version="1.31.10" date="2024-05-11"/>
     <release version="1.31.7" date="2024-03-09">
       <url type="details">https://multiviewer.app/changelog#version-1.31.7</url>
       <description>
